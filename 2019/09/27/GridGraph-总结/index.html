@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GridGraph 总结 | Hexo</title><meta name="keywords" content="Unity"><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Grid Graph 的简单总结和翻译Grid Graph 所做的事情就像他的名字一样，生成网格状的节点。Grid 类的图可以很好与你切合如果你的世界是基于网格状建立的。注意以下几点：你可以在运行的时候更新图，比如塔防和RTS类游戏。在任何场景中使用它，你都可以得到一个不错的图的结果并且使用最小的配置量。支持 raycast 和 funnel 算法。可预见的模式。可以添加惩罚与可行走的值从供给的图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GridGraph 总结">
+<meta property="og:url" content="http://example.com/2019/09/27/GridGraph-%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Grid Graph 的简单总结和翻译Grid Graph 所做的事情就像他的名字一样，生成网格状的节点。Grid 类的图可以很好与你切合如果你的世界是基于网格状建立的。注意以下几点：你可以在运行的时候更新图，比如塔防和RTS类游戏。在任何场景中使用它，你都可以得到一个不错的图的结果并且使用最小的配置量。支持 raycast 和 funnel 算法。可预见的模式。可以添加惩罚与可行走的值从供给的图">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/03/RODiWQwsanhgTBM.jpg">
+<meta property="article:published_time" content="2019-09-27T08:29:08.000Z">
+<meta property="article:modified_time" content="2021-04-17T07:21:21.822Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Unity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/03/RODiWQwsanhgTBM.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2019/09/27/GridGraph-%E6%80%BB%E7%BB%93/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-17 15:21:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/03/03/ESplB4mDfNaGnt1.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">GridGraph 总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2019-09-27T08:29:08.000Z" title="Created 2019-09-27 16:29:08">2019-09-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-04-17T07:21:21.822Z" title="Updated 2021-04-17 15:21:21">2021-04-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Astar/">Astar</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="GridGraph 总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Grid-Graph-的简单总结和翻译"><a href="#Grid-Graph-的简单总结和翻译" class="headerlink" title="Grid Graph 的简单总结和翻译"></a>Grid Graph 的简单总结和翻译</h1><p>Grid Graph 所做的事情就像他的名字一样，生成网格状的节点。Grid 类的图可以很好与你切合如果你的世界是基于网格状建立的。<br>注意以下几点：<br>你可以在运行的时候更新图，比如塔防和RTS类游戏。<br>在任何场景中使用它，你都可以得到一个不错的图的结果并且使用最小的配置量。<br>支持 raycast 和 funnel 算法。<br>可预见的模式。<br>可以添加惩罚与可行走的值从供给的图像上。<br>完美的适合地形世界因为他可以让斜坡来决定区域的可通性。</p>
+<p><img src="https://i.loli.net/2019/10/28/GvsSqBj2l3RCVni.png" alt="gridgraph_graph.png"><br><img src="https://i.loli.net/2019/10/28/qPeCVMUAutoa982.png" alt="gridgraph_inspector.png"></p>
+<h2 id="The-Snap-Size"><a href="#The-Snap-Size" class="headerlink" title="The Snap Size"></a>The Snap Size</h2><p>The Snap Size 这个按钮会将图内部的尺寸明确分割为包含当前确切数量的若干节点(nodes)。换而言之不是100.3个节点而是确切的100个节点。这样会使得“中心点”与图更准确的切合。（不过笔者暂时还没有找到）</p>
+<h2 id="在运行时更新"><a href="#在运行时更新" class="headerlink" title="在运行时更新"></a>在运行时更新</h2><p>任何实现了 IUpdateableGraph 接口的图都可以在运行时更新。对于 grid graph来说，这是一个非常好的功能你只需要更新一小部分的网格不会造成任何（看起来像重新扫描造成的）停滞。<br>例如你想在场景中生成(Instantiate)一个圆形的障碍物并且你想要更新你生成圆形障碍物处的网格，你就可以这样做：<br>AstarPath.active.UpdateGraphs (ob.collider.bounds);<br>在这里 ob 表示你刚刚生成的障碍物物体。<br>正如你所看见的，UpdateGraphs 方法传入了一个 Bounds 类型的参数并且该方法会通知所有的可更新的图。<br>grid graph 会更新那一片区域和环绕着该区域的一小部分，这一小部分正好等于 collision testing 中 diameter 参数的一半。<br>可以查看<a target="_blank" rel="noopener" href="https://arongranberg.com/astar/docs/graphupdates.html">图的运行时更新</a>来获取更多关于图类型的运行时更新信息。</p>
+<h2 id="Hexagon-graphs"><a href="#Hexagon-graphs" class="headerlink" title="Hexagon graphs"></a>Hexagon graphs</h2><p>图可以被配置为六边形图来工作通过一些简单的设置。在4.1.x版本之后 grid graph 有一个 “Shape”的下拉列表。如果你将它设置为六边形那么该图就会变成六边形图。通常你可能会想要旋转图正负45°。<br>请注意虽然 snapping 到最近的节点不是像你所期盼六边形图那样，但是这也最够接近（现实）甚至你也可能不会注意到差别。</p>
+<p><img src="https://i.loli.net/2019/10/28/TwzeBNYy6Lvsbr4.png" alt="grid_shape.png"></p>
+<h2 id="通过代码来配置"><a href="#通过代码来配置" class="headerlink" title="通过代码来配置"></a>通过代码来配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; This holds all graph data</span><br><span class="line">AstarData data &#x3D; AstarPath.active.data;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; This creates a Grid Graph</span><br><span class="line">GridGraph gg &#x3D; data.AddGraph(typeof(GridGraph)) as GridGraph;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Setup a grid graph with some values</span><br><span class="line">int width &#x3D; 50;</span><br><span class="line">int depth &#x3D; 50;</span><br><span class="line">float nodeSize &#x3D; 1;</span><br><span class="line"></span><br><span class="line">gg.center &#x3D; new Vector3(10, 0, 0);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Updates internal size from the above values</span><br><span class="line">gg.SetDimensions(width, depth, nodeSize);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Scans all graphs</span><br><span class="line">AstarPath.active.Scan();</span><br></pre></td></tr></table></figure>
+
+<h2 id="Tree-colliders"><a href="#Tree-colliders" class="headerlink" title="Tree colliders"></a>Tree colliders</h2><p>似乎 Unity 只会在游戏运行之后才会激活 tree colliders。由于这个原因，grid graph 不会在运行模式之外选定 tree colliders 但是会在开始的时候选定他们。如果在这种情况下仍然没有选定哪些 tree colliders 确保 tree 的身上真的附着了碰撞体并且 tree 的预设体处于正确的层级（该层级应该包含在 Collision Testing 模块中）。</p>
+<h1 id="案例实践部分"><a href="#案例实践部分" class="headerlink" title="案例实践部分"></a>案例实践部分</h1><h2 id="案例构建"><a href="#案例构建" class="headerlink" title="案例构建"></a>案例构建</h2><p>首先建立一个如笔者这样的场景：</p>
+<ul>
+<li>在场景中新建一个 Plane，层级和标签都保持不变。</li>
+<li>建立一个空物体，重命名为 A* ，然后添加脚本 Astar Path,如果不能在下面直接添加就找到插件的 Core 文件夹，这个脚本就在这里，拖到游戏物体上。</li>
+<li>然后仔细观察这个组件，选择 Add New Graph,然后选择 Grid Graph.</li>
+<li>这个时候选择快捷键 R,切换到游戏物体的缩放界面，将这个 Graph 的大小缩放至和我们的 Plane 一样大，然后查看 Astar Path 组件，最下面有一个 Scan 按钮，点击之后就生成了接下来的寻路区域。<br><img src="https://i.loli.net/2020/03/03/lbCZpDf9zFBL4cw.png" alt="Environment00.png"></li>
+<li>在场景中添加障碍物，如图。<br><img src="https://i.loli.net/2020/03/03/7dcyhtCaUFzPKrX.png" alt="Obstacle00.png"></li>
+<li>将这些障碍物放到一个物体下面，然后添加一个 Layer,一般命名为 Obstacle,然后将刚才添加的障碍物都切换为这个层。</li>
+<li>如果这个时候你点击刚才的 Scan 按钮，你会发现障碍物变成了如下这个样子，这是因为 Astar 目前没有将这些障碍物识别为障碍物，所以回到刚才的 Astar 组件界面，在 Collision testing 下面的 Obstacle Layer Mask 中选择刚才你新建的障碍物层，顺便修改一下 Diameter 的参数，这里这个参数的意思就是障碍物旁边的禁止访问缓冲区距离，一般来说，这个参数要配合着场景中寻路的 Agent 一起调整，因为 Agent 在寻路的时候并不会考虑其他的，还是以一个点来寻路，但是正常情况下 Agent 都是有模型的，所以这个模型的半径一定要小于这个缓冲区的距离，不然就会出现模型和禁止寻路区域的边界发生穿模或者挤压现象。<br><img src="https://i.loli.net/2020/03/03/sGhfZatP2lAHFxp.png" alt="Obstacle.png"><br><img src="https://i.loli.net/2020/03/03/mhQwLFo842HZnyf.png" alt="Obstacle02.png"></li>
+<li>这里做一点拓展，如果寻路的 Agent 的模型大小不一样，或者 Agents 之间的模型差距较大怎么办，那么就需要将这些 Agents 进行分类，然后建立多个 Graph 分别寻路。</li>
+<li>下一步是在场景中放置一个 Agent 和一个 寻路 Target</li>
+<li>Agent 是由一个空物体下面挂载一个 Capsule 构成，Target 由一个空物体下面挂载一个 Cube 构成。</li>
+<li>如果这个时候你选择 Astar 组件的 Scan 按钮你会发现 Agent 和 Target 都被扫描进了环境中，所以你需要将寻路和被寻路的物体从环境中分离出来，这时候新建 Player 层，然后修改 Agent 和 Target 的层级为 Player，接着修改 Astar 组件的 Height testing 中 Mask，将 Player 层级在这里取消选中。<br><img src="https://i.loli.net/2020/03/03/YRZcNvVBfJqG1oD.png" alt="Astar-Agent.png"></li>
+<li>然后在 Agent 上面挂载三个脚本，分别是 Seeker， AI Path， AI Destination Setter， 然后将 Target 拖进 AI Destination Setter 的 Target 中。<br><img src="https://i.loli.net/2020/03/03/u91CaYMqy5dGbmP.png" alt="Agent-Destination.png"></li>
+<li>最后点击开始就可以看到寻路效果了。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2019/09/27/GridGraph-%E6%80%BB%E7%BB%93/">http://example.com/2019/09/27/GridGraph-%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Unity/">Unity</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/03/03/RODiWQwsanhgTBM.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/10/20/PointGraph-%E7%BF%BB%E8%AF%91%E5%92%8C%E4%BD%BF%E7%94%A8%E8%A1%A5%E5%85%85/"><img class="prev-cover" src="https://i.loli.net/2020/03/03/akAci3nwhM1yFQE.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">PointGraph 翻译和案例</div></div></a></div><div class="next-post pull-right"><a href="/2019/08/13/C-%E5%8D%8F%E7%A8%8B%E6%80%BB%E7%BB%93%E4%B8%8E%E6%95%B4%E7%90%86/"><img class="next-cover" src="https://i.loli.net/2019/09/11/JqelBVWSCFPaGyA.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">C#协程总结与整理</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2019/08/13/C-协程总结与整理/" title="C#协程总结与整理"><img class="cover" src="https://i.loli.net/2019/09/11/JqelBVWSCFPaGyA.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-08-13</div><div class="title">C#协程总结与整理</div></div></a></div><div><a href="/2020/03/03/BehaviorDesigner使用手册一/" title="Behavior Designer使用手册一"><img class="cover" src="https://i.loli.net/2020/03/03/1VJQKgq6IzrUpx9.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-03</div><div class="title">Behavior Designer使用手册一</div></div></a></div><div><a href="/2020/03/09/EZReplayManager使用说明/" title="EZReplayManager使用说明"><img class="cover" src="https://i.loli.net/2020/03/10/9Qae5fcnYgw6E1T.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-09</div><div class="title">EZReplayManager使用说明</div></div></a></div><div><a href="/2019/10/20/PointGraph-翻译和使用补充/" title="PointGraph 翻译和案例"><img class="cover" src="https://i.loli.net/2020/03/03/akAci3nwhM1yFQE.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-20</div><div class="title">PointGraph 翻译和案例</div></div></a></div><div><a href="/2019/11/09/RVO环境回避/" title="RVO环境回避"><img class="cover" src="https://i.loli.net/2019/09/11/CBojD78a9Gl3QfX.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-09</div><div class="title">RVO环境回避</div></div></a></div><div><a href="/2019/07/31/Unity-中的刚体总结/" title="Unity 中的刚体总结"><img class="cover" src="https://i.loli.net/2019/09/11/l56hJYsZfAObyXx.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-07-31</div><div class="title">Unity 中的刚体总结</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">John Doe</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Grid-Graph-%E7%9A%84%E7%AE%80%E5%8D%95%E6%80%BB%E7%BB%93%E5%92%8C%E7%BF%BB%E8%AF%91"><span class="toc-number">1.</span> <span class="toc-text">Grid Graph 的简单总结和翻译</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Snap-Size"><span class="toc-number">1.1.</span> <span class="toc-text">The Snap Size</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9B%B4%E6%96%B0"><span class="toc-number">1.2.</span> <span class="toc-text">在运行时更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexagon-graphs"><span class="toc-number">1.3.</span> <span class="toc-text">Hexagon graphs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E4%BB%A3%E7%A0%81%E6%9D%A5%E9%85%8D%E7%BD%AE"><span class="toc-number">1.4.</span> <span class="toc-text">通过代码来配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tree-colliders"><span class="toc-number">1.5.</span> <span class="toc-text">Tree colliders</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E8%B7%B5%E9%83%A8%E5%88%86"><span class="toc-number">2.</span> <span class="toc-text">案例实践部分</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E6%9E%84%E5%BB%BA"><span class="toc-number">2.1.</span> <span class="toc-text">案例构建</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/04/17/TestOne/" title="TestOne"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TestOne"/></a><div class="content"><a class="title" href="/2021/04/17/TestOne/" title="TestOne">TestOne</a><time datetime="2021-04-16T20:25:32.000Z" title="Created 2021-04-17 04:25:32">2021-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/17/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/04/17/hello-world/" title="Hello World">Hello World</a><time datetime="2021-04-16T19:05:09.102Z" title="Created 2021-04-17 03:05:09">2021-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/07/26/Shader-%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" title="Shader 基础笔记"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shader 基础笔记"/></a><div class="content"><a class="title" href="/2020/07/26/Shader-%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" title="Shader 基础笔记">Shader 基础笔记</a><time datetime="2020-07-26T03:18:29.000Z" title="Created 2020-07-26 11:18:29">2020-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/03/16/Socket-%E9%80%9A%E4%BF%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Socket 通信学习记录"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Socket 通信学习记录"/></a><div class="content"><a class="title" href="/2020/03/16/Socket-%E9%80%9A%E4%BF%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Socket 通信学习记录">Socket 通信学习记录</a><time datetime="2020-03-16T07:52:34.000Z" title="Created 2020-03-16 15:52:34">2020-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/03/16/Lua-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Lua 学习记录"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 学习记录"/></a><div class="content"><a class="title" href="/2020/03/16/Lua-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Lua 学习记录">Lua 学习记录</a><time datetime="2020-03-16T07:52:17.000Z" title="Created 2020-03-16 15:52:17">2020-03-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By John Doe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

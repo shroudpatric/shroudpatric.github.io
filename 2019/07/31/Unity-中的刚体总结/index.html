@@ -1,0 +1,162 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Unity 中的刚体总结 | Hexo</title><meta name="keywords" content="Unity"><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Unity 中的刚体&amp;#8195;刚体是 Unity 里面比较重要的一个组件，检测碰撞最好两边都添加刚体，不然不添加刚体的一方会有几率检测不到碰撞。&amp;#8195;刚体里面比较常用的是 Drag, Constraints 等。刚体的优先级是低于变换组件（Transform）的,意思是即使你将刚体完全锁定了，但是通过代码控制变换组件然后改变物体的位置或者旋转依然是可以的，刚体的锁定不会对这个步骤产生影">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity 中的刚体总结">
+<meta property="og:url" content="http://example.com/2019/07/31/Unity-%E4%B8%AD%E7%9A%84%E5%88%9A%E4%BD%93%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Unity 中的刚体&amp;#8195;刚体是 Unity 里面比较重要的一个组件，检测碰撞最好两边都添加刚体，不然不添加刚体的一方会有几率检测不到碰撞。&amp;#8195;刚体里面比较常用的是 Drag, Constraints 等。刚体的优先级是低于变换组件（Transform）的,意思是即使你将刚体完全锁定了，但是通过代码控制变换组件然后改变物体的位置或者旋转依然是可以的，刚体的锁定不会对这个步骤产生影">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2019/09/11/l56hJYsZfAObyXx.jpg">
+<meta property="article:published_time" content="2019-07-31T10:42:36.000Z">
+<meta property="article:modified_time" content="2021-04-17T07:21:21.352Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Unity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/09/11/l56hJYsZfAObyXx.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2019/07/31/Unity-%E4%B8%AD%E7%9A%84%E5%88%9A%E4%BD%93%E6%80%BB%E7%BB%93/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-17 15:21:21'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2019/08/08/wulyXBrxq9LOnvW.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Unity 中的刚体总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2019-07-31T10:42:36.000Z" title="Created 2019-07-31 18:42:36">2019-07-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-04-17T07:21:21.352Z" title="Updated 2021-04-17 15:21:21">2021-04-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Unity 中的刚体总结"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Unity-中的刚体"><a href="#Unity-中的刚体" class="headerlink" title="Unity 中的刚体"></a>Unity 中的刚体</h1><p>&#8195;刚体是 Unity 里面比较重要的一个组件，检测碰撞最好两边都添加刚体，不然不添加刚体的一方会有几率检测不到碰撞。<br>&#8195;刚体里面比较常用的是 Drag, Constraints 等。刚体的优先级是低于变换组件（Transform）的,意思是即使你将刚体完全锁定了，但是通过代码控制变换组件然后改变物体的位置或者旋转依然是可以的，刚体的锁定不会对这个步骤产生影响。<br>通过程序动态控制刚体的锁定的代码如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Rigidbody body &#x3D; gameObject.GetComponent&lt;Rigidbody&gt;();</span><br><span class="line">body.constraints &#x3D; RigidbodyConstraints.None;</span><br></pre></td></tr></table></figure>
+<p>本句执行完之后刚体会不锁定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">body.constraints &#x3D; RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionX;</span><br></pre></td></tr></table></figure>
+<p>本句执行完毕后会同时锁定 旋转的Z轴　和坐标的Y轴</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">body.constraints &#x3D; ~RigidbodyConstraints.FreezeAll;</span><br></pre></td></tr></table></figure>
+<p>本句执行完毕后会一个都不会锁定，注意等号后面有一个符号是　反</p>
+<p>&#8195;刚体有一个比较重要的应用就是添加力，添加力的方式有两种：</p>
+<p>&#8195;第一种是给刚体添加一个力，让刚体按世界坐标系进行运动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rigidbody.AddForce(Vector3，ForceMode)：</span><br></pre></td></tr></table></figure>
+<p>&#8195;第二种是给刚体添加一个力，让刚体按自身坐标系进行运动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rigidbody.AddRelativeForce(Vector3，ForceMode)：</span><br></pre></td></tr></table></figure>
+
+<p>&#8195;在这里有两个参数，第一个参数是力的大小和方向，意味着这个 Vector3 类型的参数不仅决定着力的方向，该参数的大小也会对力的作用效果产生影响，值得一提的是，这里的力受阻力的影响，也就是 Drag。<br>&#8195;第二个参数是力的模式，这个参数是一个枚举类型的参数，一共有四个值：</p>
+<p>Force ：Add a continuous force to the rigidbody, using its mass.(给刚体添加一个持续的力，考虑它的质量)<br>Acceleration ：Add a continuous acceleration to the rigidbody, ignoring its mass. (给刚体添加一个持续的力，忽略它的质量)<br>Impulse ：Add an instant force impulse to the rigidbody, using its mass.(给刚体添加一个瞬间的力，考虑它的质量)<br>VelocityChange ：Add an instant velocity change to the rigidbody, ignoring its mass. (给刚体添加一个瞬间的速度变化，可理解为加速度，忽略它的质量)</p>
+<p>&#8195;下面是四种枚举值所对应的例子，值得一提的是，上面的枚举值中，所有持续的力都需要配合时间使用，类似于 Vector3.MoveTowards() 方法。</p>
+<p>&#8195;我的场景搭建如图所示，一个 平面的 Cube，一个 Sphere, 和一个用来显示当前刚体速度的 Text。<br><img src="https://i.loli.net/2019/09/09/5EORt9wVkK2Hler.png" alt="场景搭建.png"><br>&#8195;下面的代码是我用来测试四种枚举值的代码，其中 Update() 方法中每帧输出当前刚体的速度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using UnityEngine.UI;</span><br><span class="line"></span><br><span class="line">namespace History.RigidbodyTest</span><br><span class="line">&#123;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;summary&gt;</span><br><span class="line">    &#x2F;&#x2F;&#x2F; 用来测试刚体的API</span><br><span class="line">    &#x2F;&#x2F;&#x2F; &lt;&#x2F;summary&gt;</span><br><span class="line">    public class DragTest : MonoBehaviour</span><br><span class="line">    &#123;</span><br><span class="line">        Rigidbody rigid;</span><br><span class="line">        Text speed;</span><br><span class="line">        &#x2F;&#x2F; Start is called before the first frame update</span><br><span class="line">        void Start()</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F;获取物体刚体引用</span><br><span class="line">            rigid &#x3D; GetComponent&lt;Rigidbody&gt;();</span><br><span class="line">            &#x2F;&#x2F;获取 UI Text 引用</span><br><span class="line">            speed &#x3D; GameObject.Find(&quot;Velocity&quot;).GetComponent&lt;Text&gt;();</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;给物体添加 Force 类型的力</span><br><span class="line">            &#x2F;&#x2F;StartCoroutine(ForceTest());</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;给物体添加 Acceleration 类型的力</span><br><span class="line">            &#x2F;&#x2F;StartCoroutine(AccelerationTest());</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;给物体添加一个 Impulse 类型的力</span><br><span class="line">            &#x2F;&#x2F;StartCoroutine(ImpulseTest());</span><br><span class="line"></span><br><span class="line">            &#x2F;&#x2F;给物体添加一个 VelocityChange 类型的力</span><br><span class="line">            StartCoroutine(VelocityChange());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private void Update()</span><br><span class="line">        &#123;</span><br><span class="line">            speed.text &#x3D; rigid.velocity.ToString();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private IEnumerator ImpulseTest()</span><br><span class="line">        &#123;</span><br><span class="line">            rigid.AddForce(new Vector3(50,0,0),ForceMode.Impulse);</span><br><span class="line">            yield return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private IEnumerator VelocityChange()</span><br><span class="line">        &#123;</span><br><span class="line">            rigid.AddForce(new Vector3(50,0,0),ForceMode.VelocityChange);</span><br><span class="line">            yield return null;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private IEnumerator ForceTest()</span><br><span class="line">        &#123;</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                rigid.AddForce(new Vector3(50,0,0), ForceMode.Force);</span><br><span class="line">                yield return null;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        private IEnumerator AccelerationTest()</span><br><span class="line">        &#123;</span><br><span class="line">            while (true)</span><br><span class="line">            &#123;</span><br><span class="line">                rigid.AddForce(new Vector3(50,0,0),ForceMode.Acceleration);</span><br><span class="line">                yield return null;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>&#8195;四种枚举值所对应的结果如下：</p>
+<p>Force ：由于在我的代码中没有写跳出条件，每帧都会给刚体添加一个力，所以物体会持续加速，不会停止运动。<br>Acceleration ：与 Force 结果一样。<br>Impulse ： 物体在运动一段时间过后停止运动，期间有一个最大的速度值。<br>VelocityChange ： 结果同 VelocityChange.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2019/07/31/Unity-%E4%B8%AD%E7%9A%84%E5%88%9A%E4%BD%93%E6%80%BB%E7%BB%93/">http://example.com/2019/07/31/Unity-%E4%B8%AD%E7%9A%84%E5%88%9A%E4%BD%93%E6%80%BB%E7%BB%93/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Unity/">Unity</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2019/09/11/l56hJYsZfAObyXx.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2019/08/13/C-%E5%8D%8F%E7%A8%8B%E6%80%BB%E7%BB%93%E4%B8%8E%E6%95%B4%E7%90%86/"><img class="prev-cover" src="https://i.loli.net/2019/09/11/JqelBVWSCFPaGyA.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">C#协程总结与整理</div></div></a></div><div class="next-post pull-right"><a href="/2019/07/12/Transform-%E3%80%81-Vector3-%E5%92%8C-Quaternion/"><img class="next-cover" src="https://i.loli.net/2019/09/12/tn85AuCL1GHbce4.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Transform 、 Vector3 和 Quaternion</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2019/08/13/C-协程总结与整理/" title="C#协程总结与整理"><img class="cover" src="https://i.loli.net/2019/09/11/JqelBVWSCFPaGyA.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-08-13</div><div class="title">C#协程总结与整理</div></div></a></div><div><a href="/2020/03/03/BehaviorDesigner使用手册一/" title="Behavior Designer使用手册一"><img class="cover" src="https://i.loli.net/2020/03/03/1VJQKgq6IzrUpx9.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-03</div><div class="title">Behavior Designer使用手册一</div></div></a></div><div><a href="/2020/03/09/EZReplayManager使用说明/" title="EZReplayManager使用说明"><img class="cover" src="https://i.loli.net/2020/03/10/9Qae5fcnYgw6E1T.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-09</div><div class="title">EZReplayManager使用说明</div></div></a></div><div><a href="/2019/09/27/GridGraph-总结/" title="GridGraph 总结"><img class="cover" src="https://i.loli.net/2020/03/03/RODiWQwsanhgTBM.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-27</div><div class="title">GridGraph 总结</div></div></a></div><div><a href="/2019/10/20/PointGraph-翻译和使用补充/" title="PointGraph 翻译和案例"><img class="cover" src="https://i.loli.net/2020/03/03/akAci3nwhM1yFQE.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-20</div><div class="title">PointGraph 翻译和案例</div></div></a></div><div><a href="/2019/11/09/RVO环境回避/" title="RVO环境回避"><img class="cover" src="https://i.loli.net/2019/09/11/CBojD78a9Gl3QfX.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-09</div><div class="title">RVO环境回避</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">John Doe</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Unity-%E4%B8%AD%E7%9A%84%E5%88%9A%E4%BD%93"><span class="toc-number">1.</span> <span class="toc-text">Unity 中的刚体</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/04/17/TestOne/" title="TestOne"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TestOne"/></a><div class="content"><a class="title" href="/2021/04/17/TestOne/" title="TestOne">TestOne</a><time datetime="2021-04-16T20:25:32.000Z" title="Created 2021-04-17 04:25:32">2021-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/17/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/04/17/hello-world/" title="Hello World">Hello World</a><time datetime="2021-04-16T19:05:09.102Z" title="Created 2021-04-17 03:05:09">2021-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/07/26/Shader-%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" title="Shader 基础笔记"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shader 基础笔记"/></a><div class="content"><a class="title" href="/2020/07/26/Shader-%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" title="Shader 基础笔记">Shader 基础笔记</a><time datetime="2020-07-26T03:18:29.000Z" title="Created 2020-07-26 11:18:29">2020-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/03/16/Socket-%E9%80%9A%E4%BF%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Socket 通信学习记录"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Socket 通信学习记录"/></a><div class="content"><a class="title" href="/2020/03/16/Socket-%E9%80%9A%E4%BF%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Socket 通信学习记录">Socket 通信学习记录</a><time datetime="2020-03-16T07:52:34.000Z" title="Created 2020-03-16 15:52:34">2020-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/03/16/Lua-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Lua 学习记录"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 学习记录"/></a><div class="content"><a class="title" href="/2020/03/16/Lua-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Lua 学习记录">Lua 学习记录</a><time datetime="2020-03-16T07:52:17.000Z" title="Created 2020-03-16 15:52:17">2020-03-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By John Doe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

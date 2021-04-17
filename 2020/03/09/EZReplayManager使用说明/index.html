@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EZReplayManager使用说明 | Hexo</title><meta name="keywords" content="Unity"><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="EZReplayManager 使用记录最近增加的回放需求，首选是 EZReplayManager,不过最后应该不会使用这个插件，因为实在是最后生成的本地文件太大了，而且这个本地文件还跟你的回放场景有关，也就是说如果你所需要回放的是一个偏庞大或者偏细致的场景，那么最后生成的本地文件都会很大，所以大家看需自行考虑吧。 插件的导入首先声明，笔者所使用的插件版本是 1.5 版本，在导入过程中，尝试了 U">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EZReplayManager使用说明">
+<meta property="og:url" content="http://example.com/2020/03/09/EZReplayManager%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="EZReplayManager 使用记录最近增加的回放需求，首选是 EZReplayManager,不过最后应该不会使用这个插件，因为实在是最后生成的本地文件太大了，而且这个本地文件还跟你的回放场景有关，也就是说如果你所需要回放的是一个偏庞大或者偏细致的场景，那么最后生成的本地文件都会很大，所以大家看需自行考虑吧。 插件的导入首先声明，笔者所使用的插件版本是 1.5 版本，在导入过程中，尝试了 U">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.loli.net/2020/03/10/9Qae5fcnYgw6E1T.jpg">
+<meta property="article:published_time" content="2020-03-09T02:38:24.000Z">
+<meta property="article:modified_time" content="2021-04-17T07:21:22.046Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Unity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/03/10/9Qae5fcnYgw6E1T.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2020/03/09/EZReplayManager%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-17 15:21:22'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div></div></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/03/10/J6FPbGB8IzKVojM.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Hexo</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">EZReplayManager使用说明</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2020-03-09T02:38:24.000Z" title="Created 2020-03-09 10:38:24">2020-03-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-04-17T07:21:22.046Z" title="Updated 2021-04-17 15:21:22">2021-04-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="EZReplayManager使用说明"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="EZReplayManager-使用记录"><a href="#EZReplayManager-使用记录" class="headerlink" title="EZReplayManager 使用记录"></a>EZReplayManager 使用记录</h1><p>最近增加的回放需求，首选是 EZReplayManager,不过最后应该不会使用这个插件，因为实在是最后生成的本地文件太大了，而且这个本地文件还跟你的回放场景有关，也就是说如果你所需要回放的是一个偏庞大或者偏细致的场景，那么最后生成的本地文<br>件都会很大，所以大家看需自行考虑吧。</p>
+<h2 id="插件的导入"><a href="#插件的导入" class="headerlink" title="插件的导入"></a>插件的导入</h2><p>首先声明，笔者所使用的插件版本是 1.5 版本，在导入过程中，尝试了 Unity 2018 和 2019 版本都不行，原因与2017 后粒子系统的大改有关，而且在该插件中又对粒子系统也进行了回放处理，所以在 2017 以上的版本中都无法使用。</p>
+<p>我在导入插件之后报了如下错误：</p>
+<p><img src="https://i.loli.net/2020/03/10/eMX6KrxdoP8W9HI.png" alt=" "></p>
+<p>这个工程我是在 Unity 2017 的 LTS 版本里面导入的，删除了两个 JavaScript 脚本就解决了。</p>
+<p><img src="https://i.loli.net/2020/03/10/IQ2dMuocw6yLUaS.png" alt=" "></p>
+<p>这个错误是我在运行插件里面的案例2出来的，错误是动画丢失，在场景里面找到角色然后找到他的动画机，通过动画可以找到模型，然后将丢失的动画拖入动画机里面就好了。</p>
+<h2 id="案例运行记录"><a href="#案例运行记录" class="headerlink" title="案例运行记录"></a>案例运行记录</h2><p>打开官方的案例2，运行后如图。<br><img src="https://i.loli.net/2020/03/10/P25eymJuoO6cY7p.png" alt="003.png"></p>
+<p>这里已经表示开始录制了，选择停止录制之后就可以观看回放了。点击观看回放进入这个界面。</p>
+<p><img src="https://i.loli.net/2020/03/10/3hPBJRTHDweUNjL.png" alt="004.png"></p>
+<p>这个界面也很好去理解，播放，暂停，倍速。</p>
+<p>如果你选择了保存回放，那么首先，在 PC 平台下,你的回放会保存为一个名为 “example2.ezr” 的文件，这个名字是官方写好的，不过后期可以修改文件的名字但是不能修改后缀名，保存路径是在你的总项目下面，和Assets 平级的路径下面。</p>
+<h2 id="案例原理解析和-API-记录"><a href="#案例原理解析和-API-记录" class="headerlink" title="案例原理解析和 API 记录"></a>案例原理解析和 API 记录</h2><p>官方案例二的场景中有一个预制体，如下图：</p>
+<p><img src="https://i.loli.net/2020/03/10/6ukD7iMoalyRweG.png" alt=" "></p>
+<p>该预制体有三个属性比较重要在这里先说明一下：</p>
+<ul>
+<li><p>Recording Interval : 默认是 0.05，意味着每秒记录 20 帧，所以一般你要根据你游戏的实际情况选择录制间隔的参数，这里建议每次调整的幅度为 0.01，当参数为 0.04 的时候 游戏录制就是 25 帧。</p>
+</li>
+<li><p>Game Objects To Record : 这个参数是一个游戏列表，你需要将你所有记录的游戏体都放到这个列表中，你也可以用下面的 API 来进行动态操作。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EZReplayManage.markObject4recording(gameobject);</span><br></pre></td></tr></table></figure>
+<p>括号中的参数就是你需要记录的动态添加的物体。</p>
+<ul>
+<li>Components And Scripts To Keep At Replay ：在回放过程中也不希望停止运行的脚本或者组件，注意这是一个string 类型的数组。该方法用的是循环寻找判定的，会比较消耗性能。</li>
+</ul>
+<p>下面是一些比较常用的 API ：</p>
+<ul>
+<li>EZReplayManager.record(); //开始录制</li>
+<li>EZReplayManager.stop(); //停止录制</li>
+<li>EZReplayManager.play(0); //播放的速度 参数范围是 1-5 小于 0 减速</li>
+<li>EZReplayManager.saveToFile(filename); //将录制的文件保存为 filename，这里这个参数的名字可以是单纯的参数名字，那么这里就会直接保存到和 Asset 同级目录下，注意不是保存在 Asset 目录下，也可以是包含绝对路径的参数名字。</li>
+</ul>
+<h2 id="EZReplayManager-重点"><a href="#EZReplayManager-重点" class="headerlink" title="EZReplayManager 重点"></a>EZReplayManager 重点</h2><p>默认情况下，这个插件记录的只是放到纪录列表里面游戏物体的坐标，旋转，和游戏物体是否发射了粒子系统(所以在粒子系统大改的2018以上版本中会有一个报错)。在第一次开始录制的时候，他会检查需要录制的游戏体列表也就是这个列表<br>：”gameObjectsToRecord”.将这个列表中所有的游戏体都做成预设体保存下来，这也就是为什么场景越复杂越细致最后得到的回放文件越大的原因。如果你想要回放，那么你需要先加载录制过程中所有形成的预设体。<br>下面这个 API 可以将你想录制的游戏体做成的预设放到特定的位置保存。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EZReplayManager.markObject4recording(YOUR_GAME_OBJECT_HERE,true,PREFAB_LOAD_PATH);</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://example.com/2020/03/09/EZReplayManager%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/">http://example.com/2020/03/09/EZReplayManager%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Unity/">Unity</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/03/10/9Qae5fcnYgw6E1T.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/03/10/Plastic%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/"><img class="prev-cover" src="https://i.loli.net/2020/03/10/GQhdNkUn7YfLpBg.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Plastic使用手册</div></div></a></div><div class="next-post pull-right"><a href="/2020/03/03/BehaviorDesigner%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C%E4%B8%80/"><img class="next-cover" src="https://i.loli.net/2020/03/03/1VJQKgq6IzrUpx9.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Behavior Designer使用手册一</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2019/08/13/C-协程总结与整理/" title="C#协程总结与整理"><img class="cover" src="https://i.loli.net/2019/09/11/JqelBVWSCFPaGyA.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-08-13</div><div class="title">C#协程总结与整理</div></div></a></div><div><a href="/2020/03/03/BehaviorDesigner使用手册一/" title="Behavior Designer使用手册一"><img class="cover" src="https://i.loli.net/2020/03/03/1VJQKgq6IzrUpx9.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-03</div><div class="title">Behavior Designer使用手册一</div></div></a></div><div><a href="/2019/09/27/GridGraph-总结/" title="GridGraph 总结"><img class="cover" src="https://i.loli.net/2020/03/03/RODiWQwsanhgTBM.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-27</div><div class="title">GridGraph 总结</div></div></a></div><div><a href="/2019/10/20/PointGraph-翻译和使用补充/" title="PointGraph 翻译和案例"><img class="cover" src="https://i.loli.net/2020/03/03/akAci3nwhM1yFQE.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-10-20</div><div class="title">PointGraph 翻译和案例</div></div></a></div><div><a href="/2019/11/09/RVO环境回避/" title="RVO环境回避"><img class="cover" src="https://i.loli.net/2019/09/11/CBojD78a9Gl3QfX.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-11-09</div><div class="title">RVO环境回避</div></div></a></div><div><a href="/2019/07/31/Unity-中的刚体总结/" title="Unity 中的刚体总结"><img class="cover" src="https://i.loli.net/2019/09/11/l56hJYsZfAObyXx.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-07-31</div><div class="title">Unity 中的刚体总结</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">John Doe</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">15</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#EZReplayManager-%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">EZReplayManager 使用记录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6%E7%9A%84%E5%AF%BC%E5%85%A5"><span class="toc-number">1.1.</span> <span class="toc-text">插件的导入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E8%BF%90%E8%A1%8C%E8%AE%B0%E5%BD%95"><span class="toc-number">1.2.</span> <span class="toc-text">案例运行记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90%E5%92%8C-API-%E8%AE%B0%E5%BD%95"><span class="toc-number">1.3.</span> <span class="toc-text">案例原理解析和 API 记录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EZReplayManager-%E9%87%8D%E7%82%B9"><span class="toc-number">1.4.</span> <span class="toc-text">EZReplayManager 重点</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/04/17/TestOne/" title="TestOne"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TestOne"/></a><div class="content"><a class="title" href="/2021/04/17/TestOne/" title="TestOne">TestOne</a><time datetime="2021-04-16T20:25:32.000Z" title="Created 2021-04-17 04:25:32">2021-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/04/17/hello-world/" title="Hello World"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/2021/04/17/hello-world/" title="Hello World">Hello World</a><time datetime="2021-04-16T19:05:09.102Z" title="Created 2021-04-17 03:05:09">2021-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/07/26/Shader-%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" title="Shader 基础笔记"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shader 基础笔记"/></a><div class="content"><a class="title" href="/2020/07/26/Shader-%E5%9F%BA%E7%A1%80%E7%AC%94%E8%AE%B0/" title="Shader 基础笔记">Shader 基础笔记</a><time datetime="2020-07-26T03:18:29.000Z" title="Created 2020-07-26 11:18:29">2020-07-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/03/16/Socket-%E9%80%9A%E4%BF%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Socket 通信学习记录"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Socket 通信学习记录"/></a><div class="content"><a class="title" href="/2020/03/16/Socket-%E9%80%9A%E4%BF%A1%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Socket 通信学习记录">Socket 通信学习记录</a><time datetime="2020-03-16T07:52:34.000Z" title="Created 2020-03-16 15:52:34">2020-03-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/03/16/Lua-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Lua 学习记录"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Lua 学习记录"/></a><div class="content"><a class="title" href="/2020/03/16/Lua-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="Lua 学习记录">Lua 学习记录</a><time datetime="2020-03-16T07:52:17.000Z" title="Created 2020-03-16 15:52:17">2020-03-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By John Doe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
